@@ -18,7 +18,8 @@ const Mytextinput = (props) => {
         onSubmitEditing={props.onSubmitEditing}
         style={props.style}
         blurOnSubmit={false}
-        value={props.value}
+      value={props.value}
+      keyboardType={props.keyboardType}
         secureTextEntry={props.secureTextEntry}
       />
   );

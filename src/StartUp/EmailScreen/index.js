@@ -12,12 +12,14 @@ class index extends Component
 			email: "",
 		};
 	}
-	validateEmail()
+	validateEmail({ navigation,email})
 	{
 		let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 		if (reg.test(this.state.email.trim()) === true)
 		{
-			this.props.navigation.navigate("PasswordScreen")
+			navigation.navigate('PasswordScreen',{email })
+			//navigation.setParams( {email: this.state.email })
+			//navigation.navigate("PasswordScreen", { email })
 		} else
 		{
 			Alert.alert('Please enter valid email')
@@ -25,6 +27,8 @@ class index extends Component
 	}
 	render()
 	{
+		const { email } = this.state;
+		const { navigation } = this.props;
 		return (
 			<View style={styles.mainContainer}>
 				<LinearGradient
@@ -32,7 +36,7 @@ class index extends Component
 					style={styles.mainContainer}
 				>
 					<View style={styles.rightArrowTouchableContainer}>
-						<TouchableOpacity onPress={() => this.validateEmail()}>
+						<TouchableOpacity onPress={() => this.validateEmail({navigation,email})}>
 							<Image
 								style={styles.rightArrowTouchableImage}
 								source={require('../../../assets/forwardarrowblue.png')} />

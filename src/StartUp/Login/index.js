@@ -3,15 +3,20 @@ import React, { Component } from 'react';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Text, View, TouchableOpacity } from 'react-native';
 
+
+
 class index extends Component
 {
 	constructor(props)
 	{
 		super(props);
-		this.state = {
+		this.state = {	
 
 		};
 	}
+
+	
+	
 	render()
 	{
 		return (

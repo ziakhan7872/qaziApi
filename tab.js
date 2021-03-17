@@ -1,6 +1,6 @@
 
-import React from 'react';
-import { Dimensions, StyleSheet, Image ,View,Button} from 'react-native';
+import React, { useEffect } from 'react';
+import { Dimensions, StyleSheet, Image, View, Button } from 'react-native';
 import { NavigationContainer, useRoute } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
@@ -31,24 +31,25 @@ const tabBarWidth = Width;
 // NAVIGATIONS
 
 
-console. disableYellowBox = true;
+console.disableYellowBox = true;
 const Stack = createStackNavigator();
 const Stack2 = createStackNavigator();
 const Tab = createMaterialBottomTabNavigator();
 
 
-function HomeStack({navigation}) {
-	navigation.setOptions({tabBarVisible: false})
+function HomeStack({ navigation })
+{
+	navigation.setOptions({ tabBarVisible: false })
 	return (
 		<Stack.Navigator>
-			<Stack.Screen name="AddReview" component={AddReview} />    
+			<Stack.Screen name="AddReview" component={AddReview} />
 		</Stack.Navigator>
 	);
 }
 
 const CreatePlaceholder = () => (
 	<View style={{ flex: 1, backgroundColor: 'blue' }} />
-  );
+);
 
 
 function ProfileTab() 
@@ -108,25 +109,27 @@ function ProfileTab()
 				component={CreatePlaceholder}
 				options={{
 					tabBarVisible: false,
-					tabBarLabel: () => {
+					tabBarLabel: () =>
+					{
 						return null;
 					},
 					tabBarIcon: () => <Image style={styles.tinyLogo} source={require('./assets/bttomshadow.jpg')} />
 				}}
 
 				listeners={({ navigation }) => ({
-					tabPress: (e) => {
-					  e.preventDefault();
-					  navigation.navigate('AddRev');
+					tabPress: (e) =>
+					{
+						e.preventDefault();
+						navigation.navigate('AddRev');
 					},
-				  })}
+				})}
 			/>
 
 			<Tab.Screen
 				name="Galleries"
 				component={Galleries}
 				options={{
-          tabBarVisible: false,
+					tabBarVisible: false,
 					tabBarIcon: () => <Image style={styles.tinyLogo2} source={require('./assets/gallery1.png')} />
 				}}
 			/>
@@ -141,38 +144,34 @@ function ProfileTab()
 	);
 }
 
-// function(){
-// 	return(
-
-// 	)
-// }
 
 
-export default function MainTab() {
-	return(
-	  <Stack2.Navigator>
-		<Stack2.Screen name="ProfileTab" component={ProfileTab} options={{headerShown:false}}/>
-		<Stack2.Screen name="ViewProfile" component={ViewProfile}/>
-		<Stack2.Screen name="Success" component={SuccessTracker}/>
-		<Stack2.Screen name="ReplayTemps" component={ReplayTemps} options={{headerShown:false}}/>
-		<Stack2.Screen name="Categories" component={Categories}  options={{headerShown:false}}/>
-		<Stack2.Screen name="New Templates" component={NewTemplates}/>
-		<Stack2.Screen name="VacationMode" component={VacationMode}/>
-		<Stack2.Screen name="Edit Screen" component={newTemplatesEditScreen} options={{headerShown:false}}/>
-		<Stack2.Screen name="AddRev" component={AddReview} options={{
-			title: 'Request a Review'
-		}} />
+export default function MainTab()
+{
+	return (
+		<Stack2.Navigator>
+			<Stack2.Screen name="ProfileTab" component={ProfileTab} options={{ headerShown: false }} />
+			<Stack2.Screen name="ViewProfile" component={ViewProfile} />
+			<Stack2.Screen name="Success" component={SuccessTracker} />
+			<Stack2.Screen name="ReplayTemps" component={ReplayTemps} options={{ headerShown: false }} />
+			<Stack2.Screen name="Categories" component={Categories} options={{ headerShown: false }} />
+			<Stack2.Screen name="New Templates" component={NewTemplates} />
+			<Stack2.Screen name="VacationMode" component={VacationMode} />
+			<Stack2.Screen name="Edit Screen" component={newTemplatesEditScreen} options={{ headerShown: false }} />
+			<Stack2.Screen name="AddRev" component={AddReview} options={{
+				title: 'Request a Review'
+			}} />
 
-	
-	
-	  </Stack2.Navigator>
+
+
+		</Stack2.Navigator>
 	)
-  }
+}
 
 
 
 
-  const styles = StyleSheet.create({
+const styles = StyleSheet.create({
 	container: {
 		paddingTop: 50
 	},

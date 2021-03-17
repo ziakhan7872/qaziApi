@@ -1,7 +1,7 @@
 import styles from './styles';
 import React, { Component } from 'react';
 import { LinearGradient } from 'expo-linear-gradient';
-import { TouchableOpacity, View, Text, Image } from 'react-native';
+import { TouchableOpacity, View, Text, Image, Alert } from 'react-native';
 import Mytextinput from "./Mytextinput";
 
 class index extends Component
@@ -10,13 +10,52 @@ class index extends Component
 	{
 		super(props);
 		this.state = {
-			text: '',
+			data: '',
+			password: '',
 			hidePassword: true,
+			email: this.props.route.params.email
 		};
 	}
-	 managePasswordVisibility = () => {
-    this.setState({ hidePassword: !this.state.hidePassword });
-  };
+
+	handlePostRecord = () =>
+	{
+		var formData = new FormData();
+		formData.append('email', this.state.email)
+		formData.append('pass', this.state.password)
+
+		fetch('https://vivahomepros.com/mobile-app/login.php', {
+			method: 'POST',
+			headers: {
+				Accept: 'application/json',
+				'Content-Type': 'multipart/form-data'
+			},
+
+			body: formData
+
+
+		})
+			.then((Response) => Response.json())
+			.then((responseData) =>
+			{
+				this.setState({ data: responseData })
+				if (responseData.message == 'success')
+				{
+					this.props.navigation.navigate("Main", { data: this.state.data })
+
+				}
+				else
+				{
+					Alert.alert('Please enter valid email or password')
+				}
+
+			})
+			.catch(error => console.log(error))
+	}
+
+	managePasswordVisibility = () =>
+	{
+		this.setState({ hidePassword: !this.state.hidePassword });
+	};
 
 	render()
 	{
@@ -27,7 +66,8 @@ class index extends Component
 					style={styles.mainContainer}
 				>
 					<View style={styles.rightArrowTouchableContainer}>
-						<TouchableOpacity onPress={() => this.props.navigation.navigate("Main")}>
+						{/* <TouchableOpacity onPress={() => this.props.navigation.navigate("Main")}> */}
+						<TouchableOpacity onPress={() => this.handlePostRecord()}>
 							<Image
 								style={styles.rightArrowTouchableImage}
 								source={require('../../../assets/forwardarrowblue.png')} />
@@ -38,28 +78,27 @@ class index extends Component
 					</View>
 					<View style={styles.textInputContainer}>
 						<Mytextinput
-						  style={styles.textInputStyle}
-						  onChangeText={(text) => this.setState({ text })}
-                  		  secureTextEntry={this.state.hidePassword}
-							//keyboardType={'visible-password'} 
+							style={styles.textInputStyle}
+							onChangeText={(password) => this.setState({ password })}
+							secureTextEntry={this.state.hidePassword}
 						/>
 					</View>
 					<View style={styles.passwordMainContainer}>
 						<View style={styles.showPasswordContainer}>
 							<TouchableOpacity style={styles.showHidepassword} onPress={this.managePasswordVisibility}>
 								<View>
-								<Image
-									source={
-										this.state.hidePassword
-											? require("../../../assets/checkbox_border.png")
-											: require("../../../assets/checkbox.png")
-									}
+									<Image
+										source={
+											this.state.hidePassword
+												? require("../../../assets/checkbox_border.png")
+												: require("../../../assets/checkbox.png")
+										}
 									/>
 								</View>
 								<View>
-									
+
 									<Text style={styles.showPasswordTextStyle}>Show password</Text>
-									</View>
+								</View>
 							</TouchableOpacity>
 						</View>
 						<View style={styles.forgotPasswordContainer}>
