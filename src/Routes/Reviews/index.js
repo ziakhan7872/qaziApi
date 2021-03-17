@@ -1,11 +1,12 @@
 
 import styles from "./styles";
 import * as React from 'react';
-import { StyleSheet, View, AsyncStorage, ToastAndroid } from 'react-native';
+import { StyleSheet, View, ToastAndroid } from 'react-native';
 import { Dimensions, Text, TouchableOpacity, Image } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import AllReviews from "./AllReviews/index";
+import AsyncStorage from '@react-native-community/async-storage';
 import DraftsReviews from "./DraftsReviews/index";
 import PublishedReviews from "./PublishedReviews/index";
 import SentReviews from "./SentReviews/index";
@@ -24,7 +25,11 @@ export default class index extends React.Component
   }
   componentDidMount()
   {
-    console.log(`this.state.data`, this.props)
+    AsyncStorage.getItem('key').then(count =>
+    {
+      console.log('count==', count)
+
+    })
   }
 
 

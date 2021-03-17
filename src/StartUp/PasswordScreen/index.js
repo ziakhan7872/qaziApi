@@ -1,6 +1,7 @@
 import styles from './styles';
 import React, { Component } from 'react';
 import { LinearGradient } from 'expo-linear-gradient';
+import AsyncStorage from '@react-native-community/async-storage';
 import { TouchableOpacity, View, Text, Image, Alert } from 'react-native';
 import Mytextinput from "./Mytextinput";
 
@@ -38,9 +39,48 @@ class index extends Component
 			.then((responseData) =>
 			{
 				this.setState({ data: responseData })
+
 				if (responseData.message == 'success')
 				{
+					//console.log(`this.state.data=========`, this.state.data.login[0].pid)
+
+					const setId = this.state.data.login[0].pid;
+					const setName = this.state.data.login[0].cname;
+					const setbbuild = this.state.data.login[0].bbuild;
+					const category = this.state.data.login[0].category;
+
+					AsyncStorage.setItem('setId', setId);
+					AsyncStorage.setItem('setName', setName);
+					AsyncStorage.setItem('setbbuild', setbbuild);
+					AsyncStorage.setItem('category', category);
+
+					AsyncStorage.getItem('setId').then(count =>
+					{
+						console.log(count)
+
+					})
+					AsyncStorage.getItem('setId').then(id =>
+					{
+						console.log('id', id);
+
+					})
+					AsyncStorage.getItem('setName').then(name =>
+					{
+						console.log('name', name)
+
+					})
+					AsyncStorage.getItem('setbbuild').then(bbuild =>
+					{
+						console.log('bbuild', bbuild)
+
+					})
+					AsyncStorage.getItem('category').then(category =>
+					{
+						console.log('category', category)
+
+					})
 					this.props.navigation.navigate("Main", { data: this.state.data })
+
 
 				}
 				else
